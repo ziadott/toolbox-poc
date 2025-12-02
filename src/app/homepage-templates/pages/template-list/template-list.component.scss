@@ -1,0 +1,18 @@
+.template-grid {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  
+  .empty {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .pagination {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #555;
+  }
+  

@@ -1,0 +1,43 @@
+<div class="toolbar">
+    <div>
+      <h2>Homepage Templates</h2>
+      <p>Manage the available templates for different homepage layouts.</p>
+    </div>
+  
+    <button mat-raised-button color="primary">
+      + Create New Layout
+    </button>
+  </div>
+  
+  <div class="filters">
+  
+    <mat-form-field appearance="outline">
+      <mat-label>Search templates...</mat-label>
+      <input matInput>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>Filter by Status</mat-label>
+      <mat-select>
+        <mat-option value="">All</mat-option>
+        <mat-option value="Draft">Draft</mat-option>
+        <mat-option value="Active">Active</mat-option>
+        <mat-option value="Archived">Archived</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>Sort by</mat-label>
+      <mat-select>
+        <mat-option value="recent">Last Modified</mat-option>
+        <mat-option value="name">Name</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <div class="toggle-box">
+      <span>Show Archived</span>
+      <mat-slide-toggle></mat-slide-toggle>
+    </div>
+  
+  </div>
+  

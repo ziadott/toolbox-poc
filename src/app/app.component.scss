@@ -1,0 +1,16 @@
+.layout {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .content-area {
+    flex: 1;
+    background: #fafafa;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .page-container {
+    margin-top: 10px;
+  }
+  

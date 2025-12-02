@@ -1,0 +1,13 @@
+<div class="template-grid">
+    <p *ngIf="templates.length === 0" class="empty">No templates created yet.</p>
+  
+    <app-template-card
+      *ngFor="let t of templates"
+      [template]="t">
+    </app-template-card>
+  </div>
+  
+  <div class="pagination">
+    <span>Showing 0 templates</span>
+  </div>
+  
