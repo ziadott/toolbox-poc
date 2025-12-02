@@ -5,6 +5,7 @@ export interface Template {
     status: TemplateStatus;
     userType: UserType;
     lastModified: string;
+    metadataTag?: string;
   }
   
   export type TemplateStatus =

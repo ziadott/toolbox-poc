@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 import { CoreModule } from './core/core.module';
 import { HomepageTemplatesModule } from './homepage-templates/homepage-templates.module';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HomepageTemplatesModule } from './homepage-templates/homepage-templates
     HttpClientModule,
     AppRoutingModule,
     CoreModule,
-    HomepageTemplatesModule
+    HomepageTemplatesModule,
+    ScrollingModule
   ],
   bootstrap: [AppComponent]
 })

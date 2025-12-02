@@ -1,13 +1,35 @@
-<div class="template-grid">
-    <p *ngIf="templates.length === 0" class="empty">No templates created yet.</p>
-  
+<ng-container *ngIf="templates.length; else emptyState">
+  <div class="template-grid">
     <app-template-card
       *ngFor="let t of templates"
       [template]="t">
     </app-template-card>
   </div>
-  
+
   <div class="pagination">
-    <span>Showing 0 templates</span>
+    <span class="count">
+      Showing {{ rangeText }} of {{ totalTemplates }} templates
+    </span>
+
+    <div class="pager">
+      <button class="pager-btn" [disabled]="currentPage === 1">
+        Previous
+      </button>
+
+      <div class="pages">
+        <button class="page-number active">1</button>
+        <button class="page-number">2</button>
+        <button class="page-number">3</button>
+        <span class="ellipsis">...</span>
+      </div>
+
+      <button class="pager-btn" [disabled]="currentPage === totalPages">
+        Next
+      </button>
+    </div>
   </div>
-  
+</ng-container>
+
+<ng-template #emptyState>
+  <p class="empty">No templates created yet.</p>
+</ng-template>

@@ -1,29 +1,38 @@
 <mat-card class="template-card">
+  <div class="image-box">
+    <div class="placeholder-x"></div>
+  </div>
 
-    <div class="image-box">
-      <div class="placeholder-x"></div>
-    </div>
-  
+  <div class="card-body">
     <h3>{{ template.name }}</h3>
     <p class="desc">{{ template.description }}</p>
-  
+
     <div class="badges">
-      <span class="badge status">{{ template.status }}</span>
-      <span class="badge type">{{ template.userType }}</span>
+      <span class="badge status" [ngClass]="getStatusClass(template.status)">
+        {{ getStatusLabel(template.status) }}
+      </span>
+      <span class="badge type" [ngClass]="getUserTypeClass(template.userType)">
+        {{ template.userType }}
+      </span>
     </div>
-  
+
     <div class="modified">
       Last Modified: {{ template.lastModified }}
     </div>
-  
-    <a class="details">View Details</a>
-  
-    <div class="actions">
-      <mat-icon>info</mat-icon>
-      <mat-icon>edit</mat-icon>
-      <mat-icon>content_copy</mat-icon>
-      <mat-icon>delete</mat-icon>
+
+    <div class="metadata-chip" *ngIf="template.metadataTag">
+      {{ template.metadataTag }}
     </div>
-  
-  </mat-card>
-  
+
+    <div class="footer">
+      <a class="details">View Details</a>
+
+      <div class="actions">
+        <mat-icon>info</mat-icon>
+        <mat-icon>edit</mat-icon>
+        <mat-icon>content_copy</mat-icon>
+        <mat-icon>delete</mat-icon>
+      </div>
+    </div>
+  </div>
+</mat-card>

@@ -1,4 +1,37 @@
+/* Angular Material theme + core overlay styles */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+  background: #f6f7fb;
+  color: #21263a;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Keep Material overlay panels positioned and sized nicely */
+.mat-select-panel {
+  max-height: 260px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-overlay-pane {
+  z-index: 1000;
+}

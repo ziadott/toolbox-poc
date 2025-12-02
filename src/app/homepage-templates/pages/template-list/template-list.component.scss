@@ -1,18 +1,107 @@
+:host {
+  display: block;
+}
+
 .template-grid {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.empty {
+  margin-top: 32px;
+  font-size: 15px;
+  color: #7c8194;
+  text-align: center;
+}
+
+.pagination {
+  margin-top: 32px;
+  padding: 16px 24px;
+  background: #fff;
+  border: 1px solid #e1e7ef;
+  border-radius: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+  color: #454b5f;
+}
+
+.count {
+  font-weight: 500;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.pager-btn {
+  border: 1px solid #d6dbe5;
+  border-radius: 999px;
+  padding: 6px 16px;
+  background: #f7f8fb;
+  color: #1f2a44;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
   }
-  
-  .empty {
-    font-size: 14px;
-    color: #777;
+
+  &:not(:disabled):hover {
+    background: #edf2ff;
+    border-color: #c7d7ff;
   }
-  
+}
+
+.pages {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.page-number {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #d6dbe5;
+  background: #fff;
+  color: #1f2a44;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #b4c5ff;
+  }
+
+  &.active {
+    background: #1e40ff;
+    border-color: #1e40ff;
+    color: #fff;
+  }
+}
+
+.ellipsis {
+  color: #9aa2b5;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
   .pagination {
-    margin-top: 20px;
-    font-size: 13px;
-    color: #555;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
+
+  .pager {
+    margin-left: 0;
+  }
+}

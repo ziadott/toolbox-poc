@@ -1,69 +1,175 @@
 .template-card {
-    padding: 16px;
-  
-    .image-box {
-      height: 140px;
-      border: 1px solid #d6d6d6;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-  
-      .placeholder-x {
-        width: 90%;
-        height: 90%;
-        border: 2px solid #bdbdbd;
-      }
-    }
-  
-    h3 {
-      margin: 0;
-      font-size: 16px;
-      font-weight: 600;
-    }
-  
-    .desc {
-      font-size: 13px;
-      color: #666;
-      margin: 6px 0;
-    }
-  
-    .badges {
-      margin-top: 6px;
-      display: flex;
-      gap: 6px;
-  
-      .badge {
-        padding: 3px 8px;
-        font-size: 11px;
-        border-radius: 4px;
-        background: #ddd;
-      }
-    }
-  
-    .modified {
-      margin-top: 10px;
-      font-size: 11px;
-      color: #777;
-    }
-  
-    .details {
-      display: inline-block;
-      margin-top: 10px;
-      color: #1976d2;
-      cursor: pointer;
-    }
-  
-    .actions {
-      margin-top: 12px;
-      display: flex;
-      gap: 10px;
-  
-      mat-icon {
-        font-size: 18px;
-        color: #555;
-        cursor: pointer;
-      }
-    }
+  padding: 0;
+  border-radius: 16px;
+  border: 1px solid #e2e7f1;
+  box-shadow: 0 12px 40px rgba(15, 22, 40, 0.08);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.image-box {
+  padding: 18px 20px;
+  border-bottom: 1px solid #edf1f7;
+  background: #fbfcff;
+}
+
+.placeholder-x {
+  width: 100%;
+  height: 150px;
+  border: 1px dashed #c9d4e7;
+  border-radius: 12px;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    left: 50%;
+    width: 1px;
+    background: #cbd4e5;
+    transform-origin: center;
   }
-  
+
+  &::before {
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  &::after {
+    transform: translateX(-50%) rotate(-45deg);
+  }
+}
+
+.card-body {
+  padding: 20px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #121933;
+}
+
+.desc {
+  margin: 8px 0 12px;
+  color: #5f6883;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  background: #edf0f7;
+  color: #3c4760;
+}
+
+.status--success {
+  background: #e6f8ec;
+  color: #1f7a45;
+}
+
+.status--warning {
+  background: #fff1d6;
+  color: #a45c00;
+}
+
+.status--active {
+  background: #e5efff;
+  color: #1b4ddb;
+}
+
+.status--draft {
+  background: #f2f4f7;
+  color: #6c7287;
+}
+
+.status--archived {
+  background: #f3f3f3;
+  color: #8e8e8e;
+}
+
+.type--premium {
+  background: #ffeee0;
+  color: #a04000;
+}
+
+.type--freemium {
+  background: #e9f7ff;
+  color: #0065a8;
+}
+
+.type--both {
+  background: #f0e8ff;
+  color: #5b30b6;
+}
+
+.modified {
+  margin-top: 12px;
+  font-size: 12px;
+  color: #8189a8;
+}
+
+.metadata-chip {
+  align-self: flex-start;
+  margin-top: 14px;
+  padding: 5px 14px;
+  background: #ffd35c;
+  color: #5c4100;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 12px 12px 12px 4px;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.08);
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid #edf0f6;
+}
+
+.details {
+  color: #2056d1;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+mat-icon {
+  font-size: 20px;
+  color: #8a93af;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #2f4bff;
+  }
+}
