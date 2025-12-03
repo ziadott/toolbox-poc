@@ -32,9 +32,15 @@
   gap: 12px;
 }
 
+.section-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .section-card {
   display: grid;
-  grid-template-columns: minmax(320px, 1fr) minmax(220px, 280px) auto;
+  grid-template-columns: auto minmax(320px, 1fr) minmax(220px, 280px) auto;
   align-items: stretch;
   padding: 16px;
   border: 1px solid #e5e7eb;
@@ -42,6 +48,33 @@
   background: #fff;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
   gap: 16px;
+  position: relative;
+}
+
+.drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  cursor: grab;
+  padding: 0 4px;
+}
+
+.cdk-drag-preview {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  border-radius: 14px;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.section-list.cdk-drop-list-dragging .section-card:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .section-visual {

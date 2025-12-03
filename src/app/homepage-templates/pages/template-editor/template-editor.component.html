@@ -15,86 +15,97 @@
     <p *ngIf="!template.sections.length" class="empty">No sections yet. Use "Add Section" to build this template.</p>
 
     <div
-      *ngFor="let section of template.sections; trackBy: trackSection"
-      class="section-card">
-      <div class="section-visual" [ngSwitch]="section.type">
-        <div *ngSwitchCase="'carousel'" class="carousel-visual">
-          <div class="carousel-arrow left">&#10094;</div>
-          <div class="carousel-items">
-            <div class="carousel-item" *ngFor="let i of [1,2,3,4]">
-              <div class="thumb"></div>
-              <div class="meta">
-                <div class="line short"></div>
+      cdkDropList
+      [cdkDropListData]="template.sections"
+      (cdkDropListDropped)="reorderSections($event)"
+      class="section-list">
+      <div
+        *ngFor="let section of template.sections; trackBy: trackSection"
+        cdkDrag
+        class="section-card">
+        <div class="drag-handle" cdkDragHandle>
+          <mat-icon>drag_indicator</mat-icon>
+        </div>
+
+        <div class="section-visual" [ngSwitch]="section.type">
+          <div *ngSwitchCase="'carousel'" class="carousel-visual">
+            <div class="carousel-arrow left">&#10094;</div>
+            <div class="carousel-items">
+              <div class="carousel-item" *ngFor="let i of [1,2,3,4]">
+                <div class="thumb"></div>
+                <div class="meta">
+                  <div class="line short"></div>
+                  <div class="line"></div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-arrow right">&#10095;</div>
+          </div>
+
+          <div *ngSwitchCase="'playlist'" class="playlist-visual">
+            <div class="playlist-header">
+              <span class="pill">Playlist</span>
+              <span class="title">{{ section.config?.title || 'Featured Playlists' }}</span>
+            </div>
+            <div class="playlist-grid">
+              <div class="playlist-card" *ngFor="let i of [1,2,3]">
+                <div class="cover"></div>
                 <div class="line"></div>
               </div>
             </div>
           </div>
-          <div class="carousel-arrow right">&#10095;</div>
-        </div>
 
-        <div *ngSwitchCase="'playlist'" class="playlist-visual">
-          <div class="playlist-header">
-            <span class="pill">Playlist</span>
-            <span class="title">{{ section.config?.title || 'Featured Playlists' }}</span>
-          </div>
-          <div class="playlist-grid">
-            <div class="playlist-card" *ngFor="let i of [1,2,3]">
-              <div class="cover"></div>
-              <div class="line"></div>
+          <div *ngSwitchCase="'song'" class="song-visual">
+            <div class="cover"></div>
+            <div class="song-meta">
+              <div class="title">{{ section.config?.title || 'Song Title' }}</div>
+              <div class="subtitle">{{ section.config?.artist || 'Artist name' }}</div>
+              <div class="tags">
+                <span class="pill">Song</span>
+                <span class="pill">ID {{ section.config?.songId || '-' }}</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div *ngSwitchCase="'song'" class="song-visual">
-          <div class="cover"></div>
-          <div class="song-meta">
-            <div class="title">{{ section.config?.title || 'Song Title' }}</div>
-            <div class="subtitle">{{ section.config?.artist || 'Artist name' }}</div>
-            <div class="tags">
-              <span class="pill">Song</span>
-              <span class="pill">ID {{ section.config?.songId || '—' }}</span>
+          <div *ngSwitchCase="'grid'" class="grid-visual">
+            <div class="grid-item" *ngFor="let i of [1,2,3,4]">
+              <div class="box"></div>
+              <div class="caption"></div>
             </div>
           </div>
-        </div>
 
-        <div *ngSwitchCase="'grid'" class="grid-visual">
-          <div class="grid-item" *ngFor="let i of [1,2,3,4]">
-            <div class="box"></div>
-            <div class="caption"></div>
+          <div *ngSwitchCase="'banner'" class="banner-visual">
+            <div class="banner-image"></div>
+            <div class="banner-content">
+              <div class="eyebrow">{{ section.config?.tag || 'Banner' }}</div>
+              <div class="title">{{ section.config?.title || 'Promotional Banner' }}</div>
+              <div class="subtitle">{{ section.config?.text || 'Engaging subtitle or CTA text' }}</div>
+            </div>
+          </div>
+
+          <div *ngSwitchCase="'header'" class="header-visual">
+            <div class="eyebrow">{{ section.config?.tag || 'Header' }}</div>
+            <div class="title">{{ section.config?.title || 'Welcome header' }}</div>
+            <div class="subtitle">{{ section.config?.subtitle || 'Use this section to highlight something important' }}</div>
+          </div>
+
+          <div *ngSwitchDefault class="default-visual">
+            <div class="placeholder">Preview not available</div>
           </div>
         </div>
 
-        <div *ngSwitchCase="'banner'" class="banner-visual">
-          <div class="banner-image"></div>
-          <div class="banner-content">
-            <div class="eyebrow">{{ section.config?.tag || 'Banner' }}</div>
-            <div class="title">{{ section.config?.title || 'Promotional Banner' }}</div>
-            <div class="subtitle">{{ section.config?.text || 'Engaging subtitle or CTA text' }}</div>
+        <div class="section-details">
+          <div class="section-type-pill">{{ section.type }}</div>
+          <div class="detail-row" *ngFor="let item of getConfigEntries(section)">
+            <span class="label">{{ item.label }}</span>
+            <span class="value">{{ item.value }}</span>
           </div>
         </div>
 
-        <div *ngSwitchCase="'header'" class="header-visual">
-          <div class="eyebrow">{{ section.config?.tag || 'Header' }}</div>
-          <div class="title">{{ section.config?.title || 'Welcome header' }}</div>
-          <div class="subtitle">{{ section.config?.subtitle || 'Use this section to highlight something important' }}</div>
+        <div class="section-actions">
+          <button mat-stroked-button color="primary" (click)="editSection(section)">Edit</button>
+          <button mat-stroked-button color="warn" (click)="deleteSection(section.id)">Delete</button>
         </div>
-
-        <div *ngSwitchDefault class="default-visual">
-          <div class="placeholder">Preview not available</div>
-        </div>
-      </div>
-
-      <div class="section-details">
-        <div class="section-type-pill">{{ section.type }}</div>
-        <div class="detail-row" *ngFor="let item of getConfigEntries(section)">
-          <span class="label">{{ item.label }}</span>
-          <span class="value">{{ item.value }}</span>
-        </div>
-      </div>
-
-      <div class="section-actions">
-        <button mat-stroked-button color="primary" (click)="editSection(section)">Edit</button>
-        <button mat-stroked-button color="warn" (click)="deleteSection(section.id)">Delete</button>
       </div>
     </div>
   </section>

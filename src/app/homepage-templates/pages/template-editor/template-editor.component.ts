@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Template, Section } from '../../models/template.model';
 import { TemplateService } from '../../services/template.service';
@@ -91,6 +92,17 @@ export class TemplateEditorComponent implements OnInit {
     }
 
     this.template.sections = this.template.sections.filter((s) => s.id !== sectionId);
+    this.saveTemplate();
+  }
+
+  reorderSections(event: CdkDragDrop<Section[]>): void {
+    if (!this.template) {
+      return;
+    }
+
+    const updated = [...this.template.sections];
+    moveItemInArray(updated, event.previousIndex, event.currentIndex);
+    this.template.sections = updated;
     this.saveTemplate();
   }
 
