@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Template } from '../models/template.model';
 
 const STORAGE_KEY = 'templates';
@@ -8,28 +9,48 @@ const STORAGE_KEY = 'templates';
 })
 export class TemplateService {
   private templates: Template[] = [];
+  private readonly templates$ = new BehaviorSubject<Template[]>([]);
 
   constructor() {
     this.templates = this.loadTemplates();
+    this.templates$.next(this.templates);
   }
 
   getTemplates(): Template[] {
-    return this.templates;
+    return [...this.templates];
+  }
+
+  templatesChanges() {
+    return this.templates$.asObservable();
   }
 
   getTemplateById(id: number): Template | undefined {
     return this.templates.find((t) => t.id === id);
   }
 
-  addTemplate(template: Template): void {
-    const next: Template = { ...template, sections: [] };
+  addTemplate(input: Pick<Template, 'name' | 'description' | 'userType'> & Partial<Pick<Template, 'id' | 'lastModified' | 'sections'>>): Template {
+    const next: Template = {
+      id: input.id ?? Date.now(),
+      name: input.name,
+      description: input.description,
+      userType: input.userType,
+      lastModified: input.lastModified ?? new Date().toISOString(),
+      sections: input.sections ?? []
+    };
+
     this.templates = [...this.templates, next];
-    this.saveTemplates();
+    this.emitAndPersist();
+    return next;
   }
 
   updateTemplate(updated: Template): void {
     this.templates = this.templates.map((t) => (t.id === updated.id ? { ...updated } : t));
-    this.saveTemplates();
+    this.emitAndPersist();
+  }
+
+  deleteTemplate(id: number): void {
+    this.templates = this.templates.filter((t) => t.id !== id);
+    this.emitAndPersist();
   }
 
   private loadTemplates(): Template[] {
@@ -45,7 +66,8 @@ export class TemplateService {
     return [];
   }
 
-  private saveTemplates(): void {
+  private emitAndPersist(): void {
+    this.templates$.next([...this.templates]);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(this.templates));
   }
 }

@@ -7,7 +7,7 @@
     </p>
   </div>
 
-  <button mat-raised-button color="primary" class="create-btn" [routerLink]="['/homepage-templates/editor', 'new']">
+  <button mat-raised-button color="primary" class="create-btn" (click)="openCreateTemplate()">
     + Create New Template
   </button>
 </div>

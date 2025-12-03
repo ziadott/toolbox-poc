@@ -6,7 +6,6 @@ import { TemplateEditorComponent } from './pages/template-editor/template-editor
 
 const routes: Routes = [
   { path: '', component: TemplateListComponent },
-  { path: 'editor/new', component: TemplateEditorComponent },
   { path: 'editor/:id', component: TemplateEditorComponent }
 ];
 

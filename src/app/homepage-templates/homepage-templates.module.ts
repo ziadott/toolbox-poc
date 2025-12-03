@@ -6,6 +6,7 @@ import { TemplateListComponent } from './pages/template-list/template-list.compo
 import { TemplateCardComponent } from './components/template-card/template-card.component';
 import { TemplateEditorComponent } from './pages/template-editor/template-editor.component';
 import { AddSectionDialogComponent } from './components/add-section-dialog/add-section-dialog.component';
+import { TemplateDialogComponent } from './components/template-dialog/template-dialog.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,7 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     TemplateListComponent,
     TemplateCardComponent,
     TemplateEditorComponent,
-    AddSectionDialogComponent
+    AddSectionDialogComponent,
+    TemplateDialogComponent
   ],
   imports: [
     CommonModule,

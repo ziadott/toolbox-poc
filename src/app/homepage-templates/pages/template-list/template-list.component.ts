@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Template } from '../../models/template.model';
 import { TemplateService } from '../../services/template.service';
 import { TemplateFiltersService, TemplateFilterState, SortOption } from '../../services/template-filters.service';
@@ -8,12 +9,18 @@ import { TemplateFiltersService, TemplateFilterState, SortOption } from '../../s
   templateUrl: './template-list.component.html',
   styleUrls: ['./template-list.component.scss']
 })
-export class TemplateListComponent implements OnInit {
+export class TemplateListComponent implements OnInit, OnDestroy {
   templates: Template[] = [];
   private allTemplates: Template[] = [];
   totalTemplates = 0;
   readonly pageSize = 6;
   currentPage = 1;
+  private subscriptions: Subscription[] = [];
+  private currentFilters: TemplateFilterState = {
+    search: '',
+    sort: 'recent',
+    showArchived: false
+  };
 
   constructor(
     private readonly templateService: TemplateService,
@@ -22,11 +29,27 @@ export class TemplateListComponent implements OnInit {
 
   ngOnInit(): void {
     this.allTemplates = this.templateService.getTemplates();
-    this.templates = [...this.allTemplates];
+    this.totalTemplates = this.allTemplates.length;
+    this.applyFilters(this.currentFilters);
 
-    this.filtersService.filtersChanges().subscribe((filters) => {
-      this.applyFilters(filters);
-    });
+    this.subscriptions.push(
+      this.templateService.templatesChanges().subscribe((templates) => {
+        this.allTemplates = templates;
+        this.totalTemplates = templates.length;
+        this.applyFilters(this.currentFilters);
+      })
+    );
+
+    this.subscriptions.push(
+      this.filtersService.filtersChanges().subscribe((filters) => {
+        this.currentFilters = filters;
+        this.applyFilters(filters);
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
   get rangeText(): string {
