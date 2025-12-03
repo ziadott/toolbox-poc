@@ -1,68 +1,51 @@
 import { Injectable } from '@angular/core';
 import { Template } from '../models/template.model';
 
+const STORAGE_KEY = 'templates';
+
 @Injectable({
   providedIn: 'root'
 })
 export class TemplateService {
+  private templates: Template[] = [];
 
-  private readonly templates: Template[] = [
-    {
-      id: '1',
-      name: 'Standard Discovery Layout',
-      description: 'A balanced layout emphasizing new music and personalized recommendations.',
-      status: 'PublishedToStaging',
-      userType: 'Premium',
-      lastModified: '2023-10-26 14:30',
-      metadataTag: 'Metadata'
-    },
-    {
-      id: '2',
-      name: 'Artist Spotlight',
-      description: 'Highlights a single artist with their discography and related content.',
-      status: 'Draft',
-      userType: 'Freemium',
-      lastModified: '2023-10-25 10:00'
-    },
-    {
-      id: '3',
-      name: 'Genre Focus',
-      description: 'Showcases content based on a user\'s preferred genres.',
-      status: 'PublishedToProduction',
-      userType: 'Freemium',
-      lastModified: '2023-10-24 16:15'
-    },
-    {
-      id: '4',
-      name: 'New Releases Carousel',
-      description: 'Features a prominent carousel for the latest music releases.',
-      status: 'Active',
-      userType: 'Both',
-      lastModified: '2023-10-23 09:00'
-    },
-    {
-      id: '5',
-      name: 'Podcast Hub',
-      description: 'Dedicated layout for discovering and managing podcasts.',
-      status: 'Archived',
-      userType: 'Premium',
-      lastModified: '2023-10-22 11:45'
-    },
-    {
-      id: '6',
-      name: 'Curated Playlists',
-      description: 'Focuses on displaying a wide range of curated playlists.',
-      status: 'Active',
-      userType: 'Both',
-      lastModified: '2023-10-21 13:00'
-    }
-  ];
+  constructor() {
+    this.templates = this.loadTemplates();
+  }
 
   getTemplates(): Template[] {
     return this.templates;
   }
 
-  getTotal(): number {
-    return this.templates.length;
+  getTemplateById(id: number): Template | undefined {
+    return this.templates.find((t) => t.id === id);
+  }
+
+  addTemplate(template: Template): void {
+    const next: Template = { ...template, sections: [] };
+    this.templates = [...this.templates, next];
+    this.saveTemplates();
+  }
+
+  updateTemplate(updated: Template): void {
+    this.templates = this.templates.map((t) => (t.id === updated.id ? { ...updated } : t));
+    this.saveTemplates();
+  }
+
+  private loadTemplates(): Template[] {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored) as Template[];
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+    return [];
+  }
+
+  private saveTemplates(): void {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.templates));
   }
 }

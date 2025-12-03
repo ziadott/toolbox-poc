@@ -1,0 +1,37 @@
+<div class="editor" *ngIf="template; else missing">
+  <header class="editor__header">
+    <div>
+      <h2>{{ template.name }}</h2>
+      <p>Last updated: {{ template.lastModified }}</p>
+    </div>
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="addSection()">Add Section</button>
+      <button mat-stroked-button color="accent" (click)="saveTemplate()">Save</button>
+    </div>
+  </header>
+
+  <section class="sections">
+    <h3>Sections</h3>
+    <p *ngIf="!template.sections.length" class="empty">No sections yet.</p>
+
+    <div *ngFor="let section of template.sections" class="section-card">
+      <div>
+        <div class="section-type">{{ section.type }}</div>
+        <pre class="section-config">{{ section.config | json }}</pre>
+      </div>
+      <div class="section-actions">
+        <button mat-stroked-button color="primary" (click)="editSection(section)">Edit</button>
+        <button mat-stroked-button color="warn" (click)="deleteSection(section.id)">Delete</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="preview">
+    <h3>JSON Preview</h3>
+    <pre>{{ template | json }}</pre>
+  </div>
+</div>
+
+<ng-template #missing>
+  <p class="empty">Template not found.</p>
+</ng-template>

@@ -7,7 +7,7 @@
     </p>
   </div>
 
-  <button mat-raised-button color="primary" class="create-btn">
+  <button mat-raised-button color="primary" class="create-btn" [routerLink]="['/homepage-templates/editor', 'new']">
     + Create New Template
   </button>
 </div>
@@ -24,28 +24,11 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>Filter by Status</mat-label>
-    <mat-select (selectionChange)="onStatusChange($event.value)">
-      <mat-option value="">All</mat-option>
-      <mat-option value="Draft">Draft</mat-option>
-      <mat-option value="Active">Active</mat-option>
-      <mat-option value="PublishedToStaging">Published to Staging</mat-option>
-      <mat-option value="PublishedToProduction">Published to Production</mat-option>
-      <mat-option value="Archived">Archived</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
     <mat-label>Sort by</mat-label>
     <mat-select (selectionChange)="onSortChange($event.value)">
       <mat-option value="recent">Last Modified</mat-option>
       <mat-option value="name">Name</mat-option>
-      <mat-option value="status">Status</mat-option>
     </mat-select>
   </mat-form-field>
 
-  <div class="toggle-box">
-    <span>Show Archived</span>
-    <mat-slide-toggle color="primary" (change)="onShowArchivedChange($event.checked)"></mat-slide-toggle>
-  </div>
 </div>

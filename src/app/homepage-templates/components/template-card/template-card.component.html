@@ -7,25 +7,16 @@
     <h3>{{ template.name }}</h3>
     <p class="desc">{{ template.description }}</p>
 
-    <div class="badges">
-      <span class="badge status" [ngClass]="getStatusClass(template.status)">
-        {{ getStatusLabel(template.status) }}
-      </span>
-      <span class="badge type" [ngClass]="getUserTypeClass(template.userType)">
-        {{ template.userType }}
-      </span>
-    </div>
 
     <div class="modified">
       Last Modified: {{ template.lastModified }}
     </div>
 
-    <div class="metadata-chip" *ngIf="template.metadataTag">
-      {{ template.metadataTag }}
-    </div>
 
     <div class="footer">
-      <a class="details">View Details</a>
+      <a class="details" [routerLink]="['/homepage-templates/editor', template.id]">
+        View Details
+      </a>
 
       <div class="actions">
         <mat-icon>info</mat-icon>

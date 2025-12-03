@@ -1,0 +1,78 @@
+.editor {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.editor__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+
+  h2 {
+    margin: 0;
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  gap: 16px;
+}
+
+.section-type {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.section-config {
+  margin: 6px 0 0;
+  background: #f9fafb;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 420px;
+  overflow: auto;
+}
+
+.section-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.empty {
+  color: #9ca3af;
+}
+
+.preview {
+  background: #ffffff;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+}

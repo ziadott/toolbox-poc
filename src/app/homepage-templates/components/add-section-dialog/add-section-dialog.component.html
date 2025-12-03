@@ -1,0 +1,87 @@
+<h2 mat-dialog-title>Add Section</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="dialog-body">
+  <mat-form-field appearance="outline" class="full">
+    <mat-label>Component Type</mat-label>
+    <mat-select formControlName="type" (selectionChange)="onTypeChange()">
+      <mat-option *ngFor="let t of types" [value]="t">{{ t }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <ng-container [ngSwitch]="form.get('type')?.value">
+    <ng-container *ngSwitchCase="'carousel'">
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Tag</mat-label>
+        <input matInput formControlName="tag" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Limit</mat-label>
+        <input matInput type="number" formControlName="limit" />
+      </mat-form-field>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'playlist'">
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Tag</mat-label>
+        <input matInput formControlName="tag" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Limit</mat-label>
+        <input matInput type="number" formControlName="limit" />
+      </mat-form-field>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'grid'">
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Tag</mat-label>
+        <input matInput formControlName="tag" />
+      </mat-form-field>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'song'">
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Song ID</mat-label>
+        <input matInput formControlName="songId" />
+      </mat-form-field>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'banner'">
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Image URL</mat-label>
+        <input matInput formControlName="imageUrl" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Link</mat-label>
+        <input matInput formControlName="link" />
+      </mat-form-field>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'header'">
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Text</mat-label>
+        <input matInput formControlName="text" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Style</mat-label>
+        <input matInput formControlName="style" />
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
+
+  <div class="actions">
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-flat-button color="primary" type="submit">Add</button>
+  </div>
+</form>

@@ -22,7 +22,6 @@ export class TemplateListComponent implements OnInit {
 
   ngOnInit(): void {
     this.allTemplates = this.templateService.getTemplates();
-    this.totalTemplates = this.templateService.getTotal();
     this.templates = [...this.allTemplates];
 
     this.filtersService.filtersChanges().subscribe((filters) => {
@@ -48,14 +47,6 @@ export class TemplateListComponent implements OnInit {
   private applyFilters(filters: TemplateFilterState): void {
     let list = [...this.allTemplates];
 
-    if (!filters.showArchived) {
-      list = list.filter((t) => t.status !== 'Archived');
-    }
-
-    if (filters.status) {
-      list = list.filter((t) => t.status === filters.status);
-    }
-
     if (filters.search.trim()) {
       const term = filters.search.trim().toLowerCase();
       list = list.filter(
@@ -78,8 +69,6 @@ export class TemplateListComponent implements OnInit {
     switch (sort) {
       case 'name':
         return [...list].sort((a, b) => a.name.localeCompare(b.name));
-      case 'status':
-        return [...list].sort((a, b) => a.status.localeCompare(b.status));
       case 'recent':
       default:
         return [...list].sort(

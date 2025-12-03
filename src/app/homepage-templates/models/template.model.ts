@@ -1,19 +1,22 @@
 export interface Template {
-    id: string;
-    name: string;
-    description: string;
-    status: TemplateStatus;
-    userType: UserType;
-    lastModified: string;
-    metadataTag?: string;
-  }
-  
-  export type TemplateStatus =
-    'Draft' |
-    'Active' |
-    'PublishedToStaging' |
-    'PublishedToProduction' |
-    'Archived';
-  
-  export type UserType = 'Premium' | 'Freemium' | 'Both';
-  
+  id: number;
+  name: string;
+  description: string;
+  userType: 'Premium' | 'Freemium' | 'Both';
+  lastModified: string;
+  sections: Section[];
+}
+
+export interface Section {
+  id: number;
+  type: ComponentType;
+  config: any; // will vary depending on the component type
+}
+
+export type ComponentType =
+  | 'carousel'
+  | 'playlist'
+  | 'song'
+  | 'grid'
+  | 'banner'
+  | 'header';

@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { TemplateStatus } from '../models/template.model';
 
-export type SortOption = 'recent' | 'name' | 'status';
+
+export type SortOption = 'recent' | 'name';
 
 export interface TemplateFilterState {
   search: string;
-  status: TemplateStatus | '';
   sort: SortOption;
   showArchived: boolean;
 }
 
 const DEFAULT_FILTER_STATE: TemplateFilterState = {
   search: '',
-  status: '',
   sort: 'recent',
   showArchived: false
 };

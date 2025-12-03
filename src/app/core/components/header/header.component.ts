@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { TemplateFiltersService } from '../../../homepage-templates/services/template-filters.service';
-import { TemplateStatus } from '../../../homepage-templates/models/template.model';
 
 @Component({
   selector: 'app-header',
@@ -14,15 +13,7 @@ export class HeaderComponent {
     this.filtersService.updateFilters({ search: term });
   }
 
-  onStatusChange(status: TemplateStatus | ''): void {
-    this.filtersService.updateFilters({ status });
-  }
-
-  onSortChange(sort: 'recent' | 'name' | 'status'): void {
+  onSortChange(sort: 'recent' | 'name'): void {
     this.filtersService.updateFilters({ sort });
-  }
-
-  onShowArchivedChange(showArchived: boolean): void {
-    this.filtersService.updateFilters({ showArchived });
   }
 }
