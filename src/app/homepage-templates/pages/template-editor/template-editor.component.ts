@@ -118,4 +118,33 @@ export class TemplateEditorComponent implements OnInit {
       sections: []
     };
   }
+
+  trackSection(index: number, section: Section): number {
+    return section.id;
+  }
+
+  getConfigEntries(section: Section): { label: string; value: string }[] {
+    const config = section.config || {};
+    const entries = Object.entries(config)
+      .filter(([_, value]) => value !== undefined && value !== '')
+      .map(([key, value]) => ({
+        label: this.formatLabel(key),
+        value: Array.isArray(value) || typeof value === 'object'
+          ? JSON.stringify(value)
+          : String(value)
+      }));
+
+    return entries.length
+      ? entries
+      : [{ label: 'Details', value: 'No additional details provided' }];
+  }
+
+  private formatLabel(key: string): string {
+    return key
+      .replace(/([A-Z])/g, ' $1')
+      .replace(/_/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .replace(/^./, (c) => c.toUpperCase());
+  }
 }

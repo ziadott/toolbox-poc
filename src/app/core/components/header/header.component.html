@@ -1,18 +1,32 @@
 <div class="toolbar">
   <div class="title-block">
-    <p class="eyebrow">Homepage Configuration</p>
-    <h2>Homepage Templates</h2>
-    <p class="subtitle">
+    <p class="eyebrow" *ngIf="!isEditorPage">Homepage Configuration</p>
+    <h2>{{ isEditorPage ? templateTitle : 'Homepage Templates' }}</h2>
+    <p class="subtitle" *ngIf="!isEditorPage">
       Manage the available templates for different homepage layouts.
     </p>
   </div>
 
-  <button mat-raised-button color="primary" class="create-btn" (click)="openCreateTemplate()">
+  <button
+    *ngIf="isEditorPage"
+    mat-stroked-button
+    color="primary"
+    class="create-btn"
+    [routerLink]="['/homepage-templates']">
+    ← All Templates
+  </button>
+
+  <button
+    *ngIf="!isEditorPage"
+    mat-raised-button
+    color="primary"
+    class="create-btn"
+    (click)="openCreateTemplate()">
     + Create New Template
   </button>
 </div>
 
-<div class="filters">
+<div class="filters" *ngIf="!isEditorPage">
   <mat-form-field appearance="outline" class="search-field">
     <mat-label>Search templates</mat-label>
     <mat-icon matPrefix>search</mat-icon>
@@ -30,5 +44,4 @@
       <mat-option value="name">Name</mat-option>
     </mat-select>
   </mat-form-field>
-
 </div>

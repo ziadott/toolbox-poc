@@ -1,9 +1,9 @@
-<h2 mat-dialog-title>Add Section</h2>
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Section' : 'Add Section' }}</h2>
 
 <form [formGroup]="form" (ngSubmit)="submit()" class="dialog-body">
   <mat-form-field appearance="outline" class="full">
     <mat-label>Component Type</mat-label>
-    <mat-select formControlName="type" (selectionChange)="onTypeChange()">
+    <mat-select formControlName="type" (selectionChange)="onTypeChange()" [disabled]="isEditMode">
       <mat-option *ngFor="let t of types" [value]="t">{{ t }}</mat-option>
     </mat-select>
   </mat-form-field>
@@ -82,6 +82,6 @@
 
   <div class="actions">
     <button mat-button type="button" (click)="cancel()">Cancel</button>
-    <button mat-flat-button color="primary" type="submit">Add</button>
+    <button mat-flat-button color="primary" type="submit">{{ isEditMode ? 'Save' : 'Add' }}</button>
   </div>
 </form>
